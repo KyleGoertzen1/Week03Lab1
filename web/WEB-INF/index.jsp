@@ -16,7 +16,7 @@
         <div>
             <form action="login" method="POST">
                 Username: <input type="text" name="uname" value="${username}"><br>
-                Password: <input type="text" name="pword" value="${password}"><br>
+                Password: <input type="password" name="pword" value="${password}"><br>
                 <input type="submit" value="Login">
             </form>
         </div>
