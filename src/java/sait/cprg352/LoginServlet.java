@@ -5,6 +5,7 @@
  */
 package sait.cprg352;
 
+import business.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author 729347
  */
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,10 +30,10 @@ public class LoginServlet extends HttpServlet {
         return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = new User();
         // TODO
                 
         // retrieves fname and lname from the form
@@ -44,8 +45,7 @@ public class LoginServlet extends HttpServlet {
                 passWord == null || passWord.isEmpty()) {
             // set error message            
             // repopulate the JSP values with first name and last name
-            request.setAttribute("username", userName);
-            request.setAttribute("password", passWord);
+            request.setAttribute("user", user);
             request.setAttribute("errorMessage", "Both values are required!");
             
             // forward the request back to index.jsp
@@ -56,9 +56,11 @@ public class LoginServlet extends HttpServlet {
         
         if (userName.equalsIgnoreCase("adam") && passWord.equals("password") || userName.equalsIgnoreCase("betty") &&
                 passWord.equals("password")) {
+            
+            user.setFirstName(userName);
+            user.setPassWord(passWord);
             // set the attributes for the JSP
-            request.setAttribute("username", userName);
-            request.setAttribute("password", passWord);
+            request.setAttribute("user", user);
             
             getServletContext().getRequestDispatcher("/WEB-INF/loggedIn.jsp").
                     forward(request, response);
@@ -70,9 +72,11 @@ public class LoginServlet extends HttpServlet {
                 !passWord.equals("password")) {
             request.setAttribute("errorMessage", "Invalid username or password!");
             
+            user.setFirstName(userName);
+            user.setPassWord(passWord);
+            
             // set the attributes for the JSP
-            request.setAttribute("username", userName);
-            request.setAttribute("password", passWord);
+            request.setAttribute("user", user);
 
             getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").
                     forward(request, response);

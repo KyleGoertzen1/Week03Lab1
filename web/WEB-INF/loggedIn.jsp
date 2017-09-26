@@ -13,6 +13,6 @@
     </head>
     <body>
         <h1>Main Page</h1>
-        <p>Hello, ${username} <a href="MainPageServlet">Logout</a></p>
+        <p>Hello, ${user.firstName} <a href="MainPageServlet">Logout</a></p>
     </body>
 </html>
